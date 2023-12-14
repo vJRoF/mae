@@ -1,0 +1,36 @@
+@page "/Expenses"
+@using Mae.DataAccess.Abstractions
+@using Mae.DataAccess
+@inject IDayValueRepository _dayValueRepository
+<h3>Expenses</h3>
+
+<table class="table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Temp. (C)</th>
+            <th>Temp. (F)</th>
+            <th>Summary</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var value in _values)
+        {
+            <tr>
+                <td>@value.Date</td>
+                <td>@value.Amount</td>
+                <td>@value.Comment</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+@code {
+    private DayValue[] _values;
+
+    protected override void OnInitialized()
+    {
+        _values = _dayValueRepository.GetDayValues();
+    }
+
+}
